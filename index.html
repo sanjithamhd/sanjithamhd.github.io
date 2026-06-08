@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanjitha Mohammad — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --card: #141414;
+    --border: #222222;
+    --green: #00ff87;
+    --green-dim: #00cc6a;
+    --text: #ffffff;
+    --muted: #888888;
+    --muted2: #555555;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* subtle dot grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+
+  .nav-logo span { color: var(--green); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--green); }
+
+  /* WRAPPER */
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 56px;
+  }
+
+  section { padding: 110px 0; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 80px;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: up 0.6s ease 0.2s forwards;
+  }
+
+  .hero-eyebrow-line {
+    width: 32px;
+    height: 2px;
+    background: var(--green);
+  }
+
+  .hero-eyebrow-text {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(56px, 9vw, 108px);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -4px;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: up 0.6s ease 0.35s forwards;
+  }
+
+  .hero-name .outline {
+    -webkit-text-stroke: 2px #ffffff;
+    color: transparent;
+  }
+
+  .hero-name .green { color: var(--green); }
+
+  .hero-desc {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 500px;
+    line-height: 1.85;
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: up 0.6s ease 0.5s forwards;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 52px;
+    opacity: 0;
+    animation: up 0.6s ease 0.65s forwards;
+  }
+
+  .badge {
+    padding: 6px 16px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    transition: all 0.25s;
+    cursor: default;
+  }
+
+  .badge:hover {
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: up 0.6s ease 0.8s forwards;
+  }
+
+  .btn-primary {
+    padding: 14px 32px;
+    background: var(--green);
+    color: #000;
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+
+  .btn-primary:hover {
+    background: var(--green-dim);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,255,135,0.25);
+  }
+
+  .btn-secondary {
+    padding: 14px 32px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  @keyframes up {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 14px;
+  }
+
+  .section-label::before {
+    content: '◆';
+    font-size: 8px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    margin-bottom: 56px;
+    line-height: 1.05;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+    margin: 0 56px;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .skill-card {
+    background: var(--card);
+    padding: 28px 24px;
+    transition: background 0.25s;
+  }
+
+  .skill-card:hover { background: #1a1a1a; }
+
+  .skill-category {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+
+  .skill-list {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 2;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .project-card {
+    background: var(--card);
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.25s;
+    position: relative;
+  }
+
+  .project-card:hover { background: #161616; }
+
+  .project-card:hover .project-link { color: var(--green); }
+
+  .project-type {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 14px;
+    opacity: 0.7;
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.75;
+    margin-bottom: 24px;
+    flex: 1;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .tag {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    background: #1e1e1e;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    letter-spacing: 0.5px;
+  }
+
+  .project-link {
+    color: var(--muted2);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+
+  .project-link:hover { color: var(--green); gap: 10px; }
+
+  /* ACHIEVEMENTS */
+  .achievements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    border: 1px solid var(--border);
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .achievement-item {
+    background: var(--card);
+    padding: 22px 32px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    transition: background 0.25s;
+  }
+
+  .achievement-item:hover { background: #161616; }
+
+  .achievement-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    width: 36px;
+    text-align: center;
+  }
+
+  .achievement-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 3px;
+    letter-spacing: -0.3px;
+  }
+
+  .achievement-sub {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .achievement-year {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--green);
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    padding: 3px 10px;
+    border: 1px solid rgba(0,255,135,0.2);
+    border-radius: 2px;
+  }
+
+  /* CERTS */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .cert-card {
+    background: var(--card);
+    padding: 28px 28px;
+    transition: background 0.25s;
+  }
+
+  .cert-card:hover { background: #161616; }
+
+  .cert-issuer {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 10px;
+    opacity: 0.7;
+  }
+
+  .cert-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  .cert-date { color: var(--muted); font-size: 12px; }
+
+  /* CONTACT */
+  #contact { text-align: center; }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 44px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.25s;
+    background: var(--card);
+  }
+
+  .contact-link:hover {
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--muted2);
+    font-size: 12px;
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .wrap { padding: 0 24px; }
+    .divider { margin: 0 24px; }
+    .hero-name { letter-spacing: -2.5px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Sanjitha<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="wrap">
+<section id="hero">
+  <div class="hero-eyebrow">
+    <div class="hero-eyebrow-line"></div>
+    <span class="hero-eyebrow-text">Computer Science · UAE · Class of 2026</span>
+  </div>
+  <h1 class="hero-name">
+    <span class="outline">Sanjitha</span><br>
+    <span class="green">Mohammad</span>
+  </h1>
+  <p class="hero-desc">
+    Final-year CS student building at the intersection of AI, data science, and frontend development. I turn complex problems into clean, working solutions.
+  </p>
+  <div class="hero-badges">
+    <span class="badge">Machine Learning</span>
+    <span class="badge">Frontend Dev</span>
+    <span class="badge">UI/UX Design</span>
+    <span class="badge">Data Analytics</span>
+    <span class="badge">Python</span>
+    <span class="badge">Next.js</span>
+    <span class="badge">Figma</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary">View My Work</a>
+    <a href="#contact" class="btn-secondary">Get In Touch</a>
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
+<!-- SKILLS -->
+<div class="wrap">
+<section id="about">
+  <p class="section-label reveal">Skills & Tools</p>
+  <h2 class="section-title reveal">What I Work With</h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-category">Languages</div>
+      <div class="skill-list">Python<br>JavaScript<br>HTML & CSS<br>SQL</div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-category">ML / Data</div>
+      <div class="skill-list">Scikit-learn · XGBoost<br>PyTorch · Pandas<br>NumPy · Seaborn<br>ggplot2 (R)</div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-category">Web Dev</div>
+      <div class="skill-list">Next.js<br>React<br>Shopify<br>Android Studio</div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-category">Design</div>
+      <div class="skill-list">Figma<br>Canva<br>Milanote</div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-category">Databases</div>
+      <div class="skill-list">MongoDB Atlas<br>SQL · Oracle<br>PyMongo</div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-category">Tools</div>
+      <div class="skill-list">Git · GitHub<br>VS Code · Notion<br>Google Colab</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
+<!-- PROJECTS -->
+<div class="wrap">
+<section id="projects">
+  <p class="section-label reveal">Selected Work</p>
+  <h2 class="section-title reveal">Projects</h2>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-type">AI · Machine Learning</div>
+      <div class="project-title">Drug–Protein Interaction Prediction</div>
+      <div class="project-desc">End-to-end ML pipeline for binary drug–protein interaction classification using the DAVIS dataset (30,056 pairs). Best model achieved ROC-AUC of 0.9764 — validated on 20 real-world clinical kinase inhibitor pairs with 100% correct classification.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">XGBoost</span><span class="tag">PyTorch</span><span class="tag">ESM-2</span><span class="tag">RDKit</span>
+      </div>
+      <a href="https://colab.research.google.com/drive/1iPZ9aCET8erse-v9KbP9f1_y8aZpl0tL?usp=sharing" target="_blank" class="project-link">View on Colab →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-type">Data Analytics</div>
+      <div class="project-title">NorthStar Urban Mobility Analytics</div>
+      <div class="project-desc">Full analytics case study diagnosing delivery failures across 9 relational datasets (30,000+ records). SQL analysis in R, Python EDA, predictive modelling with Random Forest, and a MongoDB Atlas NoSQL schema with full CRUD.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">R / SQL</span><span class="tag">MongoDB</span><span class="tag">Scikit-learn</span>
+      </div>
+      <a href="https://github.com/sanjithamhd/northstar_analytics" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-type">Web · Sustainability</div>
+      <div class="project-title">UAE HeatLens — Climate Resilience App</div>
+      <div class="project-desc">Climate-resilience platform focused on urban heat mapping for UAE cities. Led frontend development and coordinated team deliverables throughout the project lifecycle.</div>
+      <div class="project-tags">
+        <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+      </div>
+      <a href="https://github.com/Thaspeeha/Urban-Heat" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-type">Web · Sustainability</div>
+      <div class="project-title">Anthos Terra — Sustainability Platform</div>
+      <div class="project-desc">Integrated AI prediction functionality into the frontend of a sustainability web platform, enabling users to interact with model outputs directly in the browser.</div>
+      <div class="project-tags">
+        <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+      </div>
+      <a href="https://github.com/Thaspeeha/Anthos-Terra" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-type">UI/UX Design</div>
+      <div class="project-title">Smart Home App Prototype</div>
+      <div class="project-desc">Accessible smart home mobile app prototype designed in Figma with a strong focus on inclusive UX. Contributed interaction flows, accessibility guidelines, and coordinated feature design across team members.</div>
+      <div class="project-tags">
+        <span class="tag">Figma</span><span class="tag">UX Design</span><span class="tag">Accessibility</span>
+      </div>
+      <a href="https://www.figma.com/design/GNEb7v7ywnqHj4Ri4f7hON/HCC?node-id=0-1" target="_blank" class="project-link">View in Figma →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-type">E-commerce</div>
+      <div class="project-title">Global Snack Box</div>
+      <div class="project-desc">Culturally themed e-commerce store built end-to-end on Shopify. Responsible for storefront design, product layout, navigation structure, and overall user experience.</div>
+      <div class="project-tags">
+        <span class="tag">Shopify</span><span class="tag">UX</span><span class="tag">E-commerce</span>
+      </div>
+      <a href="https://wbites.myshopify.com/" target="_blank" class="project-link">Visit Store →</a>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
+<!-- ACHIEVEMENTS -->
+<div class="wrap">
+<section id="achievements">
+  <p class="section-label reveal">Recognition</p>
+  <h2 class="section-title reveal">Achievements & Awards</h2>
+  <div class="achievements-list">
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">🥇</div>
+      <div>
+        <div class="achievement-title">1st Place — RAK Innovation & Sustainability Challenge (RISC)</div>
+        <div class="achievement-sub">RISC Committee · University of West London, RAK · "Sea Through Space" — space tech for coastal sustainability</div>
+      </div>
+      <div class="achievement-year">2025</div>
+    </div>
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">🥈</div>
+      <div>
+        <div class="achievement-title">2nd Place — PayIt Hackathon</div>
+        <div class="achievement-sub">PayIt Digital Wallet · First Abu Dhabi Bank · AI integration proposal with UX/UI improvements</div>
+      </div>
+      <div class="achievement-year">2023</div>
+    </div>
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">🥉</div>
+      <div>
+        <div class="achievement-title">Second Runner-Up — RAK EISC 2026</div>
+        <div class="achievement-sub">American University of RAK · IWAM Conference · TerraQuest selected from 400+ submissions</div>
+      </div>
+      <div class="achievement-year">2026</div>
+    </div>
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">🏅</div>
+      <div>
+        <div class="achievement-title">Youth Champion for Refugees</div>
+        <div class="achievement-sub">UNHRC — The United Nations Refugees Agency · Youth Champions DXB</div>
+      </div>
+      <div class="achievement-year">2024</div>
+    </div>
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">🌍</div>
+      <div>
+        <div class="achievement-title">Hult Prize — Selected for National Round</div>
+        <div class="achievement-sub">University of West London, RAK · Global social entrepreneurship competition</div>
+      </div>
+      <div class="achievement-year">2026</div>
+    </div>
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">⚡</div>
+      <div>
+        <div class="achievement-title">Create Apps Championship — High Potential Team</div>
+        <div class="achievement-sub">Create Apps Championship UAE · Recognised for app concept and execution quality</div>
+      </div>
+      <div class="achievement-year">2026</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
+<!-- CERTIFICATIONS -->
+<div class="wrap">
+<section id="certs">
+  <p class="section-label reveal">Credentials</p>
+  <h2 class="section-title reveal">Certifications</h2>
+  <div class="certs-grid">
+    <div class="cert-card reveal">
+      <div class="cert-issuer">Google Skillshop</div>
+      <div class="cert-name">Google Analytics Certification</div>
+      <div class="cert-date">Issued Jun 2025 · Expires Jun 2026</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-issuer">MinnaLearn</div>
+      <div class="cert-name">Elements of AI for Business</div>
+      <div class="cert-date">Issued Oct 2025</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-issuer">Girls in Marketing</div>
+      <div class="cert-name">Digital Marketing Internship Programme</div>
+      <div class="cert-date">Issued Sep 2023</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<div class="wrap">
+<section id="contact">
+  <p class="section-label reveal" style="justify-content:center">Let's Connect</p>
+  <h2 class="section-title reveal" style="text-align:center">Get In Touch</h2>
+  <p class="reveal" style="color:var(--muted);text-align:center;max-width:460px;margin:0 auto;">
+    Currently seeking graduate roles and internships in Tech, AI, Frontend Development, and UI/UX across the UAE.
+  </p>
+  <div class="contact-links reveal">
+    <a href="mailto:sanjithamhd@gmail.com" class="contact-link">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      sanjithamhd@gmail.com
+    </a>
+    <a href="https://linkedin.com/in/sanjitha-mohammad" target="_blank" class="contact-link">
+      <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://github.com/sanjithamhd" target="_blank" class="contact-link">
+      <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+      GitHub
+    </a>
+  </div>
+</section>
+</div>
+
+<footer>
+  <p>Sanjitha Mohammad · 2026</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
